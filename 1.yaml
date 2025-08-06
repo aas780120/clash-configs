@@ -164,7 +164,6 @@ proxy-groups:
       - WiFi-NG-Random-9002
       - WiFi-NG-Random-9003
       - WiFi-NG-Random-9004
-      - DIRECT
 
   # WiFi NG 自动选择
   - name: WiFi-NG-Auto
@@ -210,12 +209,6 @@ proxy-groups:
       - WiFi-NG-Auto
       - Mobile-NG-Auto
       - Random-NG-Auto
-      - DIRECT
-
-  # 直连组
-  - name: DIRECT
-    type: select
-    proxies:
       - DIRECT
 
 # 分流规则 - 只有 Google Play Store 走代理
