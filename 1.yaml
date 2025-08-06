@@ -1,0 +1,259 @@
+port: 7890
+socks-port: 7891
+redir-port: 7892
+mixed-port: 7893
+allow-lan: true
+bind-address: '*'
+mode: rule
+log-level: info
+ipv6: false
+external-controller: 127.0.0.1:9090
+external-ui: dashboard
+
+# DNS 配置
+dns:
+  enable: true
+  listen: 0.0.0.0:53
+  ipv6: false
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+    - 8.8.8.8
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+    - '*.lan'
+    - '*.local'
+    - localhost.ptlogin2.qq.com
+  nameserver:
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query
+    - https://1.1.1.1/dns-query
+
+# 代理节点 - HTTP 代理格式
+proxies:
+  # WiFi-NG Lagos 节点组
+  - name: "WiFi-NG-Lagos-9000"
+    type: http
+    server: 34.141.129.232
+    port: 9000
+    username: e048ce51-6cc93f08
+    password: wifi-ng--lagos-
+    
+  - name: "WiFi-NG-Lagos-9001"
+    type: http
+    server: 34.141.129.232
+    port: 9001
+    username: e048ce51-6cc93f08
+    password: wifi-ng--lagos-
+    
+  - name: "WiFi-NG-Lagos-9002"
+    type: http
+    server: 34.141.129.232
+    port: 9002
+    username: e048ce51-6cc93f08
+    password: wifi-ng--lagos-
+    
+  - name: "WiFi-NG-Lagos-9003"
+    type: http
+    server: 34.141.129.232
+    port: 9003
+    username: e048ce51-6cc93f08
+    password: wifi-ng--lagos-
+    
+  - name: "WiFi-NG-Lagos-9004"
+    type: http
+    server: 34.141.129.232
+    port: 9004
+    username: e048ce51-6cc93f08
+    password: wifi-ng--lagos-
+
+  # Mobile-NG Lagos 节点组
+  - name: "Mobile-NG-Lagos-9000"
+    type: http
+    server: 34.141.138.189
+    port: 9000
+    username: e048ce51-6cc93f08
+    password: mobile-ng--lagos-
+    
+  - name: "Mobile-NG-Lagos-9001"
+    type: http
+    server: 34.141.138.189
+    port: 9001
+    username: e048ce51-6cc93f08
+    password: mobile-ng--lagos-
+    
+  - name: "Mobile-NG-Lagos-9002"
+    type: http
+    server: 34.141.138.189
+    port: 9002
+    username: e048ce51-6cc93f08
+    password: mobile-ng--lagos-
+    
+  - name: "Mobile-NG-Lagos-9003"
+    type: http
+    server: 34.141.138.189
+    port: 9003
+    username: e048ce51-6cc93f08
+    password: mobile-ng--lagos-
+    
+  - name: "Mobile-NG-Lagos-9004"
+    type: http
+    server: 34.141.138.189
+    port: 9004
+    username: e048ce51-6cc93f08
+    password: mobile-ng--lagos-
+
+  # WiFi-NG Random 节点组
+  - name: "WiFi-NG-Random-9000"
+    type: http
+    server: 34.141.138.189
+    port: 9000
+    username: e048ce51-6cc93f08-rand
+    password: wifi-ng--lagos-
+    
+  - name: "WiFi-NG-Random-9001"
+    type: http
+    server: 34.141.138.189
+    port: 9001
+    username: e048ce51-6cc93f08-rand
+    password: wifi-ng--lagos-
+    
+  - name: "WiFi-NG-Random-9002"
+    type: http
+    server: 34.141.138.189
+    port: 9002
+    username: e048ce51-6cc93f08-rand
+    password: wifi-ng--lagos-
+    
+  - name: "WiFi-NG-Random-9003"
+    type: http
+    server: 34.141.138.189
+    port: 9003
+    username: e048ce51-6cc93f08-rand
+    password: wifi-ng--lagos-
+    
+  - name: "WiFi-NG-Random-9004"
+    type: http
+    server: 34.141.138.189
+    port: 9004
+    username: e048ce51-6cc93f08-rand
+    password: wifi-ng--lagos-
+
+# 代理组
+proxy-groups:
+  # 主要代理选择组
+  - name: NG
+    type: select
+    proxies:
+      - WiFi-NG-Auto
+      - Mobile-NG-Auto
+      - Random-NG-Auto
+      - WiFi-NG-Lagos-9000
+      - WiFi-NG-Lagos-9001
+      - WiFi-NG-Lagos-9002
+      - WiFi-NG-Lagos-9003
+      - WiFi-NG-Lagos-9004
+      - Mobile-NG-Lagos-9000
+      - Mobile-NG-Lagos-9001
+      - Mobile-NG-Lagos-9002
+      - Mobile-NG-Lagos-9003
+      - Mobile-NG-Lagos-9004
+      - WiFi-NG-Random-9000
+      - WiFi-NG-Random-9001
+      - WiFi-NG-Random-9002
+      - WiFi-NG-Random-9003
+      - WiFi-NG-Random-9004
+      - DIRECT
+
+  # WiFi NG 自动选择
+  - name: WiFi-NG-Auto
+    type: url-test
+    proxies:
+      - WiFi-NG-Lagos-9000
+      - WiFi-NG-Lagos-9001
+      - WiFi-NG-Lagos-9002
+      - WiFi-NG-Lagos-9003
+      - WiFi-NG-Lagos-9004
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+
+  # Mobile NG 自动选择
+  - name: Mobile-NG-Auto
+    type: url-test
+    proxies:
+      - Mobile-NG-Lagos-9000
+      - Mobile-NG-Lagos-9001
+      - Mobile-NG-Lagos-9002
+      - Mobile-NG-Lagos-9003
+      - Mobile-NG-Lagos-9004
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+
+  # Random NG 自动选择
+  - name: Random-NG-Auto
+    type: url-test
+    proxies:
+      - WiFi-NG-Random-9000
+      - WiFi-NG-Random-9001
+      - WiFi-NG-Random-9002
+      - WiFi-NG-Random-9003
+      - WiFi-NG-Random-9004
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+
+  # Google Play 专用分流组
+  - name: Google-Play
+    type: select
+    proxies:
+      - NG
+      - WiFi-NG-Auto
+      - Mobile-NG-Auto
+      - Random-NG-Auto
+      - DIRECT
+
+  # 直连组
+  - name: DIRECT
+    type: select
+    proxies:
+      - DIRECT
+
+# 分流规则 - 只有 Google Play Store 走代理
+rules:
+  # Google Play Store 核心服务
+  - DOMAIN,play.googleapis.com,Google-Play
+  - DOMAIN,android.clients.google.com,Google-Play
+  - DOMAIN,play.google.com,Google-Play
+  - DOMAIN,accounts.google.com,Google-Play
+  - DOMAIN,oauth2.googleapis.com,Google-Play
+  - DOMAIN,www.googleapis.com,Google-Play
+  
+  # Google Play Store 相关域名
+  - DOMAIN-SUFFIX,googleplay.cn,Google-Play
+  - DOMAIN-SUFFIX,play-games.googleusercontent.com,Google-Play
+  - DOMAIN-KEYWORD,googleplay,Google-Play
+  - DOMAIN-KEYWORD,play-fe,Google-Play
+  - DOMAIN-KEYWORD,play.google,Google-Play
+  
+  # Google Play Store 需要的认证服务
+  - DOMAIN,myaccount.google.com,Google-Play
+  - DOMAIN,accounts.youtube.com,Google-Play
+  
+  # Google Play Store 静态资源 (仅限 Play 相关)
+  - DOMAIN-SUFFIX,googleusercontent.com,Google-Play
+  - DOMAIN-SUFFIX,gstatic.com,Google-Play
+  
+  # 本地网络直连
+  - DOMAIN-SUFFIX,local,DIRECT
+  - IP-CIDR,127.0.0.0/8,DIRECT
+  - IP-CIDR,172.16.0.0/12,DIRECT
+  - IP-CIDR,192.168.0.0/16,DIRECT
+  - IP-CIDR,10.0.0.0/8,DIRECT
+  - IP-CIDR,17.0.0.0/8,DIRECT
+  - IP-CIDR,100.64.0.0/10,DIRECT
+  
+  # 中国大陆直连
+  - GEOIP,CN,DIRECT
+  
+  # 默认规则 - 其他所有流量直连
+  - MATCH,DIRECT
